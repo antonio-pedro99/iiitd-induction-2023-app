@@ -55,7 +55,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
       // Navigate to the HomePage with the profile data
       context.pushReplacement(
         const InductionAppHomePage(),
-        arguments: userProfile.toMap(), // Pass user profile data as arguments
+      // Pass user profile data as arguments
       );
     } else {
       context.showSnackBar(

@@ -9,7 +9,7 @@ extension Nav on BuildContext {
     );
   }
 
-  void pushReplacement(Widget page, {required Map<String, dynamic> arguments}) {
+  void pushReplacement(Widget page) {
     Navigator.of(this).pushReplacement(
       MaterialPageRoute(builder: (context) => page),
     );
