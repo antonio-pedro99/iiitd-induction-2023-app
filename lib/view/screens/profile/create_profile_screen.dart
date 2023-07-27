@@ -26,7 +26,6 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
   final TextEditingController usernameTextEditingController =
       TextEditingController();
 
-
   File? _profileImage;
 
   final ImagePicker _imagePicker = ImagePicker();
@@ -41,15 +40,15 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
 
   void _saveProfile(BuildContext context) {
     if (_profileImage != null) {
-
       UserProfile user = UserProfile(
         fullName: nameTextEditingController.text,
         pronouns: pronounsTextEditingController.text,
         username: usernameTextEditingController.text,
         profileImage: _profileImage!.path,
+        points: 0,
       );
-      
-      // update firebase 
+
+      // update firebase
 
       context.pushReplacement(
         const InductionAppHomePage(),
@@ -102,11 +101,16 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                       InductionAppTextFormField(
                           hintText: "Pronouns",
                           labelText: "Refer to me as...",
-                          nameTextEditingController: pronounsTextEditingController,
+                          nameTextEditingController:
+                              pronounsTextEditingController,
                           validationText: "Please enter your pronouns"),
                       const SizedBox(height: 20),
-                      InductionAppTextFormField(hintText: "Username", labelText: "username", nameTextEditingController: usernameTextEditingController, validationText: "Please enter your username"),
-                      
+                      InductionAppTextFormField(
+                          hintText: "Username",
+                          labelText: "username",
+                          nameTextEditingController:
+                              usernameTextEditingController,
+                          validationText: "Please enter your username"),
                       const SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {

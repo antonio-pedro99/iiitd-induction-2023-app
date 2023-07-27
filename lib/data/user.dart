@@ -9,6 +9,7 @@ class UserProfile {
     this.profileImage,
     this.pronouns,
     required this.username,
+    required int points,
   });
 
   factory UserProfile.fromJson(Map<String, dynamic> json) {
@@ -17,8 +18,11 @@ class UserProfile {
       username: json["username"],
       profileImage: json["imageUrl"],
       pronouns: json["pronouns"],
+      points: 0,
     );
   }
+
+  get points => null;
 
   Map<String, dynamic> toMap() {
     return {
