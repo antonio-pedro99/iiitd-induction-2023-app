@@ -9,22 +9,21 @@ import '../data/user.dart';
 
 class FirebaseAuthService extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  GoogleSignIn _googleSignIn = GoogleSignIn();
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   User? _currentUser;
 
   User? get currentUser => _currentUser;
 
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
-  
-   _googleSignIn.disconnect();
-     _currentUser = null;
+
+    _googleSignIn.disconnect();
+    _currentUser = null;
     notifyListeners();
   }
 
   Future<void> signUpWithGoogle() async {
     try {
-     
       GoogleSignInAccount? account = await _googleSignIn.signIn();
 
       if (account == null) {
@@ -51,6 +50,7 @@ class FirebaseAuthService extends ChangeNotifier {
 class FirebaseFirestoreService extends ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  UserProfile? userProfile;
 
   Future<void> addUserData(UserProfile userProfile) async {
     try {
@@ -60,6 +60,20 @@ class FirebaseFirestoreService extends ChangeNotifier {
           .set(userProfile.toMap());
     } catch (exception) {
       print(exception);
+    }
+  }
+
+  Future<UserProfile?> getUserData() async {
+    try {
+      DocumentSnapshot documentSnapshot = await _firestore
+          .collection("users")
+          .doc(_auth.currentUser!.uid)
+          .get();
+print(documentSnapshot.data());
+      return UserProfile.fromJson(documentSnapshot.data() as Map<String, dynamic>);
+      
+    } catch (exception) {
+      throw exception;
     }
   }
 }

@@ -6,6 +6,8 @@ import 'package:btech_induction_2023/view/screens/profile/text_form_field.dart';
 import 'package:btech_induction_2023/view/theme/colors.dart';
 import 'package:btech_induction_2023/view/widgets/custom_card.dart';
 import 'package:btech_induction_2023/view/widgets/texture_background.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -36,6 +38,19 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
     if (pickedImage != null) {
       _profileImage = File(pickedImage.path);
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    nameTextEditingController.dispose();
+    pronounsTextEditingController.dispose();
+    usernameTextEditingController.dispose();
+    super.dispose();
   }
 
   void _saveProfile(BuildContext context) {

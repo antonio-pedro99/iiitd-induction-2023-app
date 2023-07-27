@@ -1,15 +1,36 @@
 import 'package:btech_induction_2023/extensions/navigation.dart';
+import 'package:btech_induction_2023/service/firebase.dart';
 import 'package:btech_induction_2023/view/screens/clubs/clubs_screen.dart';
 import 'package:btech_induction_2023/view/screens/home/home_screen.dart';
 import 'package:btech_induction_2023/view/screens/location/location_screen.dart';
+import 'package:btech_induction_2023/view/screens/login/login_screen.dart';
 import 'package:btech_induction_2023/view/screens/schedule/schedule_screen.dart';
 import 'package:btech_induction_2023/view/theme/colors.dart';
 import 'package:btech_induction_2023/view/widgets/menu_button.dart';
 import 'package:btech_induction_2023/view/widgets/texture_background.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class InductionAppMenu extends StatelessWidget {
+class InductionAppMenu extends StatefulWidget {
   const InductionAppMenu({super.key});
+
+  @override
+  State<InductionAppMenu> createState() => _InductionAppMenuState();
+}
+
+class _InductionAppMenuState extends State<InductionAppMenu> {
+  @override
+  initState() {
+    super.initState();
+    FirebaseAuth.instance.authStateChanges().listen((user) {
+      if (user == null) {
+        if (mounted) {
+          context.pushReplacement(const LoginScreen());
+        }
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +110,14 @@ class InductionAppMenu extends StatelessWidget {
                               InkResponse(
                                 onTap: () {},
                                 child: const Text('FAQs'),
+                              ),
+                              InkResponse(
+                                onTap: () {
+                                  Provider.of<FirebaseAuthService>(context,
+                                          listen: false)
+                                      .signOut();
+                                },
+                                child: const Text('Logout'),
                               )
                               // all the text here, note: you do not need the style.
                             ]))),
