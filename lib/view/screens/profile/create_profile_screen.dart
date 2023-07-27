@@ -1,12 +1,14 @@
+import 'package:btech_induction_2023/data/user.dart';
 import 'package:btech_induction_2023/extensions/navigation.dart';
 import 'package:btech_induction_2023/extensions/system.dart';
 import 'package:btech_induction_2023/view/screens/home/home_screen.dart';
+import 'package:btech_induction_2023/view/screens/profile/text_form_field.dart';
+import 'package:btech_induction_2023/view/theme/colors.dart';
 import 'package:btech_induction_2023/view/widgets/custom_card.dart';
 import 'package:btech_induction_2023/view/widgets/texture_background.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:btech_induction_2023/data/user.dart'; // Import the UserProfile class
 
 class CreateProfileScreen extends StatefulWidget {
   const CreateProfileScreen({Key? key}) : super(key: key);
@@ -17,12 +19,14 @@ class CreateProfileScreen extends StatefulWidget {
 
 class _CreateProfileScreenState extends State<CreateProfileScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final TextEditingController nameTextEdittingController =
+  final TextEditingController nameTextEditingController =
+      TextEditingController();
+  final TextEditingController pronounsTextEditingController =
+      TextEditingController();
+  final TextEditingController usernameTextEditingController =
       TextEditingController();
 
-  String? _username;
-  String? _fullName;
-  String? _pronouns;
+
   File? _profileImage;
 
   final ImagePicker _imagePicker = ImagePicker();
@@ -31,31 +35,24 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
     final pickedImage = await _imagePicker.pickImage(source: source);
 
     if (pickedImage != null) {
-      setState(() {
-        _profileImage = File(pickedImage.path);
-      });
+      _profileImage = File(pickedImage.path);
     }
   }
 
   void _saveProfile(BuildContext context) {
-    if (_username != null &&
-        _username!.isNotEmpty &&
-        _profileImage != null &&
-        _fullName != null &&
-        _fullName!.isNotEmpty &&
-        _pronouns != null &&
-        _pronouns!.isNotEmpty) {
-      final userProfile = UserProfile(
-        username: _username!,
-        fullName: _fullName!,
-        pronouns: _pronouns!,
+    if (_profileImage != null) {
+
+      UserProfile user = UserProfile(
+        fullName: nameTextEditingController.text,
+        pronouns: pronounsTextEditingController.text,
+        username: usernameTextEditingController.text,
         profileImage: _profileImage!.path,
       );
+      
+      // update firebase 
 
-      // Navigate to the HomePage with the profile data
       context.pushReplacement(
         const InductionAppHomePage(),
-      // Pass user profile data as arguments
       );
     } else {
       context.showSnackBar(
@@ -68,11 +65,11 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
     return Scaffold(
       appBar: AppBar(),
       extendBodyBehindAppBar: true,
-      drawer: const Drawer(), // drawersidebar
       body: Stack(
         children: [
           const Positioned.fill(child: TextureBackground()),
-          Center(
+          Align(
+            alignment: Alignment.center,
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(16.0),
               child: CascadeCard(
@@ -91,74 +88,25 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                           _pickImage(ImageSource.gallery);
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFFAC018),
+                          backgroundColor: InductionAppColor.yellow,
                         ),
                         child: const Text('Upload Picture'),
                       ),
                       const SizedBox(height: 20),
-                      TextFormField(
-                        controller: nameTextEdittingController,
-                        onChanged: (value) {
-                          setState(() {
-                            _fullName = value;
-                          });
-                        },
-                        textAlign: TextAlign.center,
-                        decoration: const InputDecoration(
-                          labelText: 'My name is',
-                          hintText: 'Full Name',
-                          labelStyle: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white, // Set labelText color to white
-                          ),
-                          hintStyle: TextStyle(
-                            color: Colors.white, // Set hintText color to white
-                          ),
-                          border: UnderlineInputBorder(),
-                        ),
-                      ),
+                      InductionAppTextFormField(
+                          hintText: "Full name",
+                          labelText: "My name is",
+                          nameTextEditingController: nameTextEditingController,
+                          validationText: "Please enter your full name"),
                       const SizedBox(height: 20),
-                      TextFormField(
-                        onChanged: (value) {
-                          setState(() {
-                            _pronouns = value;
-                          });
-                        },
-                        textAlign: TextAlign.center,
-                        decoration: const InputDecoration(
-                          labelText: 'Refer to me as...',
-                          hintText: 'Pronouns',
-                          labelStyle: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white, // Set labelText color to white
-                          ),
-                          hintStyle: TextStyle(
-                            color: Colors.white, // Set hintText color to white
-                          ),
-                          border: UnderlineInputBorder(),
-                        ),
-                      ),
+                      InductionAppTextFormField(
+                          hintText: "Pronouns",
+                          labelText: "Refer to me as...",
+                          nameTextEditingController: pronounsTextEditingController,
+                          validationText: "Please enter your pronouns"),
                       const SizedBox(height: 20),
-                      TextFormField(
-                        onChanged: (value) {
-                          setState(() {
-                            _username = value;
-                          });
-                        },
-                        textAlign: TextAlign.center,
-                        decoration: const InputDecoration(
-                          labelText: 'and I like to go by',
-                          hintText: 'Username',
-                          labelStyle: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white, // Set labelText color to white
-                          ),
-                          hintStyle: TextStyle(
-                            color: Colors.white, // Set hintText color to white
-                          ),
-                          border: UnderlineInputBorder(),
-                        ),
-                      ),
+                      InductionAppTextFormField(hintText: "Username", labelText: "username", nameTextEditingController: usernameTextEditingController, validationText: "Please enter your username"),
+                      
                       const SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {
@@ -168,7 +116,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFFAC018),
+                          backgroundColor: InductionAppColor.yellow,
                         ),
                         child: const Text('Save and Move to Home Page'),
                       ),

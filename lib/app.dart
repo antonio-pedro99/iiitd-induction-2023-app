@@ -1,5 +1,4 @@
-import 'package:btech_induction_2023/view/screens/home/home_screen.dart';
-import 'package:btech_induction_2023/view/screens/profile/create_profile_screen.dart';
+import 'package:btech_induction_2023/view/screens/login/login_screen.dart';
 import 'package:btech_induction_2023/view/theme/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +11,7 @@ class InductionApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'B.Tech Induction App',
       theme: InductionAppTheme.dark,
-      home: const CreateProfileScreen(),
+      home: const LoginScreen(),
     );
   }
 }

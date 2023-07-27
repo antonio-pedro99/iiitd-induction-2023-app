@@ -49,7 +49,7 @@ class CascadeCard extends StatelessWidget {
                 decoration: ShapeDecoration(
                   color: const Color(0xFF252525),
                   shape: RoundedRectangleBorder(
-                    side: BorderSide(width: 0.10),
+                    side: const BorderSide(width: 0.10),
                     borderRadius: BorderRadius.circular(6.19),
                   ),
                   shadows: const [

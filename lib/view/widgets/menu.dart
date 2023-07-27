@@ -1,6 +1,8 @@
 import 'package:btech_induction_2023/extensions/navigation.dart';
 import 'package:btech_induction_2023/view/screens/clubs/clubs_screen.dart';
 import 'package:btech_induction_2023/view/screens/home/home_screen.dart';
+import 'package:btech_induction_2023/view/screens/location/location_screen.dart';
+import 'package:btech_induction_2023/view/screens/schedule/schedule_screen.dart';
 import 'package:btech_induction_2023/view/theme/colors.dart';
 import 'package:btech_induction_2023/view/widgets/menu_button.dart';
 import 'package:btech_induction_2023/view/widgets/texture_background.dart';
@@ -35,13 +37,15 @@ class InductionAppMenu extends StatelessWidget {
                 ),
                 Align(
                     alignment: Alignment.centerLeft,
-                    child: Container(
-                        margin: const EdgeInsets.only(left: 15, top: 3),
-                        child: Image.asset('images/schedule.png'))),
+                    child: MenuButtonOption(
+                        onTap: () =>
+                            context.pushReplacement(const ScheduleScreen()),
+                        image: "schedule.png",
+                        margin: const EdgeInsets.only(left: 15, top: 3))),
                 Align(
                     alignment: Alignment.centerRight,
                     child: MenuButtonOption(
-                      onTap: () => context.push(ClubsScreen()),
+                      onTap: () => context.pushReplacement(const ClubsScreen()),
                       image: 'club.png',
                       margin: const EdgeInsets.only(right: 15),
                     )),
@@ -69,7 +73,7 @@ class InductionAppMenu extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               InkResponse(
-                                onTap: () => context.push(
+                                onTap: () => context.pushReplacement(
                                     const InductionAppHomePage()),
                                 child: const Text('Home'),
                               ),
@@ -78,7 +82,8 @@ class InductionAppMenu extends StatelessWidget {
                                 child: const Text('About Us'),
                               ),
                               InkResponse(
-                                onTap: () {},
+                                onTap: () => context
+                                    .pushReplacement(const LocationScreen()),
                                 child: const Text('Location'),
                               ),
                               InkResponse(
