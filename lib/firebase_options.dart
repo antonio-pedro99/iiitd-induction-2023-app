@@ -3,6 +3,7 @@
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -49,24 +50,22 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBSkFZzH5rRZbF8g6qKqxaE5_SpvUNr5kU',
-    appId: '1:68444770162:android:d15e6e23717cd0eed717eb',
-    messagingSenderId: '68444770162',
-    projectId: 'alive-dsm',
-    databaseURL: 'https://alive-dsm-default-rtdb.firebaseio.com',
-    storageBucket: 'alive-dsm.appspot.com',
+  static FirebaseOptions android = FirebaseOptions(
+    apiKey: dotenv.env['API_KEY']!,
+    appId: dotenv.env['APP_ID']!,
+    messagingSenderId: dotenv.env['MESSAGING_SENDER_ID']!,
+    projectId: dotenv.env['PROJECT_ID']!,
+    databaseURL: dotenv.env['DATABASE_URL']!,
+    storageBucket: dotenv.env['STORAGE_BUCKET']!,
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDjCT-kGI6UR0XdSr36ki4RnHd3wk_miFg',
-    appId: '1:68444770162:ios:a15ee85668d496bdd717eb',
-    messagingSenderId: '68444770162',
-    projectId: 'alive-dsm',
-    databaseURL: 'https://alive-dsm-default-rtdb.firebaseio.com',
-    storageBucket: 'alive-dsm.appspot.com',
-    iosClientId:
-        '68444770162-ulmp0sihb38886koflhddnlthhn866ce.apps.googleusercontent.com',
-    iosBundleId: 'com.iiitd.inductionteam2023.btechInduction2023',
-  );
+  static FirebaseOptions ios = FirebaseOptions(
+      apiKey: dotenv.env['API_KEY']!,
+      appId: dotenv.env['APP_ID']!,
+      messagingSenderId: dotenv.env['MESSAGING_SENDER_ID']!,
+      projectId: dotenv.env['PROJECT_ID']!,
+      databaseURL: dotenv.env['DATABASE_URL']!,
+      storageBucket: dotenv.env['STORAGE_BUCKET']!,
+      iosClientId: dotenv.env['IOS_CLIENT_ID']!,
+      iosBundleId: dotenv.env['IOS_BUNDLE_ID']!);
 }

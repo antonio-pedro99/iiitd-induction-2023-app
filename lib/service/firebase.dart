@@ -1,7 +1,8 @@
-import 'package:btech_induction_2023/firebase_options.dart';
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -42,7 +43,7 @@ class FirebaseAuthService extends ChangeNotifier {
       _currentUser = userCredential.user;
       notifyListeners();
     } catch (exception) {
-      print(exception);
+      rethrow;
     }
   }
 }
@@ -59,7 +60,7 @@ class FirebaseFirestoreService extends ChangeNotifier {
           .doc(_auth.currentUser!.uid)
           .set(userProfile.toMap());
     } catch (exception) {
-      print(exception);
+      rethrow;
     }
   }
 
@@ -69,11 +70,43 @@ class FirebaseFirestoreService extends ChangeNotifier {
           .collection("users")
           .doc(_auth.currentUser!.uid)
           .get();
-print(documentSnapshot.data());
-      return UserProfile.fromJson(documentSnapshot.data() as Map<String, dynamic>);
-      
+
+      if (documentSnapshot.exists) {
+        return UserProfile.fromJson(
+            documentSnapshot.data() as Map<String, dynamic>);
+      } else {
+        return null;
+      }
     } catch (exception) {
-      throw exception;
+      return null;
     }
   }
+}
+
+class FirebaseStorageService extends ChangeNotifier {
+  final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  bool _isUploading = false;
+
+  Future<String> uploadProfilePicture(String filePath) async {
+    try {
+      _isUploading = true;
+      notifyListeners();
+      Reference reference = _firebaseStorage
+          .ref()
+          .child("profile_pictures")
+          .child(_auth.currentUser!.uid);
+
+      UploadTask uploadTask = reference.putFile(File(filePath));
+
+      TaskSnapshot taskSnapshot = await uploadTask;
+      _isUploading = false;
+      notifyListeners();
+      return await taskSnapshot.ref.getDownloadURL();
+    } catch (exception) {
+      rethrow;
+    }
+  }
+
+  bool get isUploading => _isUploading;
 }

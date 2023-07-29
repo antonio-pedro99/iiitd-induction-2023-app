@@ -99,58 +99,31 @@ class _LocationScreenState extends State<LocationScreen> {
                                     child: InfoStepper(
                                       steps: [
                                         InfoStep(
-                                            title: "Address",
-                                            leading: Text("Hello "),
-                                            contents: [
-                                              Text(
-                                                "Okhla Industrial Estate, Phase III,\nOkhla Industrial Area, New Delhi,\nDelhi 110020",
-                                              )
-                                            ]),
-                                        InfoStep(title: "Email", contents: [
-                                          Text(
-                                            "General information: info@iiitd.ac.in",
-                                          ),
-                                          Text(
-                                            "Placement: admin-placement@iiitd.ac.in",
-                                          ),
-                                          Text(
-                                            "Academic: admin-academic@iiitd.ac.in",
-                                          ),
-                                          Text(
-                                            "Website: admin-web@iiitd.ac.in",
-                                          ),
-                                          Text(
-                                            "Student verification: admin-btech@iiitd.ac.in",
-                                          ),
-                                        ]),
-                                        InfoStep(
-                                          title: "Phone",
-                                          contents: [
-                                            Text(
-                                              "+91-011-71985300",
-                                            ),
-                                            Text(
-                                                "+91-011-26907400-7404 (5 lines)")
-                                          ],
+                                          title: "Address",
+                                          contents:
+                                              "Okhla Industrial Estate, Phase III,\nOkhla Industrial Area, New Delhi,\nDelhi 110020",
                                         ),
                                         InfoStep(
+                                          title: "Email",
+                                          contents:
+                                              "General information: info@iiitd.ac.in\n"
+                                              "Placement: admin-placement@iiitd.ac.in"
+                                              "Academic: admin-academic@iiitd.ac.in\n"
+                                              "Website: admin-web@iiitd.ac.in\n"
+                                              "Student verification: admin-btech@iiitd.ac.in",
+                                        ),
+                                        InfoStep(
+                                            title: "Phone",
+                                            contents: "+91-011-71985300"
+                                                "+91-011-26907400-7404 (5 lines)"),
+                                        InfoStep(
                                             title: "Directions to campus",
-                                            contents: [
-                                              Text(
-                                                  "To reach the campus, coming from Nehru\nPlace on outer ring road, follow these\ndirections:"),
-                                              SizedBox(height: 2),
-                                              Text(
-                                                  "- After about half KM, turn Right from under\nthe first flyover (it is oneway)."),
-                                              SizedBox(height: 2),
-                                              Text(
-                                                  "- After about 300 m, turn Left from under the\nGovind Puri Metro station (there\nis a IIITD sign at this turn)."),
-                                              SizedBox(height: 2),
-                                              Text(
-                                                  "- After about 300 m, there will be a 'Y',\n take the left road of the 'Y'."),
-                                              SizedBox(height: 2),
-                                              Text(
-                                                  "- Follow signs for IIIT-D - the main gate\nis after about 500 m.")
-                                            ])
+                                            contents:
+                                                "To reach the campus, coming from Nehru\nPlace on outer ring road, follow these\ndirections:"
+                                                "- After about half KM, turn Right from under\nthe first flyover (it is oneway)."
+                                                "- After about 300 m, turn Left from under the\nGovind Puri Metro station (there\nis a IIITD sign at this turn)."
+                                                "- After about 300 m, there will be a 'Y',\n take the left road of the 'Y'."
+                                                "- Follow signs for IIIT-D - the main gate\nis after about 500 m.")
                                       ],
                                     ),
                                   )

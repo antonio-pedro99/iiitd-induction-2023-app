@@ -22,17 +22,29 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
     FirebaseAuth.instance.authStateChanges().listen((user) {
       if (user != null) {
-        print(user.toString());
-        if (user.metadata == DateTime.now()) {
-          context.push(const CreateProfileScreen());
-        } else {
-          if (mounted) {
-            final userProfile = UserProfile.fromAuthUser(user);
-            Provider.of<FirebaseFirestoreService>(context, listen: false)
-                .addUserData(userProfile);
-            context.pushReplacement(const InductionAppHomePage());
+        Provider.of<FirebaseFirestoreService>(context, listen: false)
+            .getUserData()
+            .then((value) {
+          if (value == null) {
+            context.push(CreateProfileScreen(
+                currentUser: UserProfile.fromAuthUser(user)));
+          } else {
+            if (mounted) {
+              context.pushReplacement(const InductionAppHomePage());
+            }
           }
-        }
+        });
+
+        // if (user.metadata == DateTime.now()) {
+        //   context.push(const CreateProfileScreen());
+        // } else {
+        //   if (mounted) {
+        //     final userProfile = UserProfile.fromAuthUser(user);
+        //     Provider.of<FirebaseFirestoreService>(context, listen: false)
+        //         .addUserData(userProfile);
+        //     context.pushReplacement(const InductionAppHomePage());
+        //   }
+        // }
       }
     });
   }
@@ -40,6 +52,17 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: SizedBox(
+          child: Image.asset("images/iiitd.png", height: 200),
+        ),
+        centerTitle: true,
+        actions: const [
+          SizedBox(
+            width: 50,
+          )
+        ],
+      ),
       body: SafeArea(
           child: Stack(
         children: [

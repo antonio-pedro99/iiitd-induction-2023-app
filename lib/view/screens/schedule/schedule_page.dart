@@ -1,4 +1,3 @@
-import 'package:btech_induction_2023/view/screens/schedule/day_schedule.dart';
 import 'package:btech_induction_2023/view/theme/colors.dart';
 import 'package:btech_induction_2023/view/widgets/stepper.dart';
 import 'package:flutter/material.dart';
@@ -38,16 +37,7 @@ class PageSchedule extends StatelessWidget {
                             width: 0.50, color: InductionAppColor.darkGrey)),
                   ),
                   child: InfoStepper(
-                    leading: const Text(
-                      "09:30 AM",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontFamily: 'Netflix Sans ',
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: -0.56,
-                      ),
-                    ),
+                    leading: true,
                     steps: schedules,
                   )))
         ],

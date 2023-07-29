@@ -4,9 +4,14 @@ import 'package:btech_induction_2023/view/widgets/constants.dart';
 import 'package:flutter/material.dart';
 
 class InfoStepper extends StatelessWidget {
-  const InfoStepper({super.key, required this.steps, this.leading});
+  const InfoStepper(
+      {super.key,
+      required this.steps,
+      this.leading = false,
+      this.contentSpace = 2});
   final List<InfoStep> steps;
-  final Widget? leading;
+  final bool? leading;
+  final double? contentSpace;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -23,7 +28,18 @@ class InfoStepper extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const SizedBox(height: 10),
-                        leading ?? const SizedBox(),
+                        leading!
+                            ? Text(
+                                steps[index].time!,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontFamily: 'Netflix Sans ',
+                                  fontWeight: FontWeight.w700,
+                                  letterSpacing: -0.56,
+                                ),
+                              )
+                            : const SizedBox()
                       ],
                     ),
                     const SizedBox(width: 5),
@@ -52,20 +68,18 @@ class InfoStepper extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 5),
-                        DefaultTextStyle(
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontFamily: 'Netflix Sans ',
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: -0.46,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ...steps[index].contents,
-                              ],
-                            )),
+                        SizedBox(
+                          width: context.width * 0.55,
+                          child: Text(steps[index].contents,
+                              overflow: TextOverflow.clip,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontFamily: 'Netflix Sans ',
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: -0.46,
+                              )),
+                        ),
                         const SizedBox(height: 20),
                       ],
                     )
@@ -74,7 +88,7 @@ class InfoStepper extends StatelessWidget {
               );
             })),
         Positioned(
-          left: leading != null ? 75 : 16.6,
+          left: leading! ? 68 : 16.6,
           top: 30,
           child: FractionallySizedBox(
             child: Container(
@@ -92,7 +106,12 @@ class InfoStepper extends StatelessWidget {
 
 class InfoStep {
   final String title;
-  final Widget? leading;
-  final List<Widget> contents;
-  const InfoStep({required this.title, required this.contents, this.leading});
+  final String contents;
+  final String? time;
+  const InfoStep({required this.title, required this.contents, this.time});
+
+  factory InfoStep.fromJson(Map<String, dynamic> json) {
+    return InfoStep(
+        title: json['title'], contents: json['contents'], time: json['time']);
+  }
 }

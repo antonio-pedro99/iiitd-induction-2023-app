@@ -17,6 +17,9 @@ class InductionApp extends StatelessWidget {
         Provider<FirebaseAuthService>(
           create: (_) => FirebaseAuthService(),
         ),
+        Provider<FirebaseStorageService>(
+          create: (_) => FirebaseStorageService(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

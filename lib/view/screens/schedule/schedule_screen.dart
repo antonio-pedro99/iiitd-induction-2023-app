@@ -1,13 +1,10 @@
-import 'package:btech_induction_2023/data/event.dart';
 import 'package:btech_induction_2023/extensions/navigation.dart';
 import 'package:btech_induction_2023/view/screens/schedule/day_schedule.dart';
 import 'package:btech_induction_2023/view/screens/schedule/schedule_page.dart';
 import 'package:btech_induction_2023/view/screens/schedule/tab_changer.dart';
-import 'package:btech_induction_2023/view/theme/colors.dart';
 import 'package:btech_induction_2023/view/widgets/headline.dart';
 import 'package:btech_induction_2023/view/widgets/menu.dart';
 import 'package:btech_induction_2023/view/widgets/menu_icon.dart';
-import 'package:btech_induction_2023/view/widgets/stepper.dart';
 import 'package:btech_induction_2023/view/widgets/texture_background.dart';
 import 'package:flutter/material.dart';
 

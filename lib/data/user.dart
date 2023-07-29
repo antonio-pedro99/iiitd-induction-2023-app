@@ -3,15 +3,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 class UserProfile {
   final String username;
   final String fullName;
-  final String? pronouns;
+  final String? phone;
   final String? profileImage;
+  final String? email;
   final int? points;
 
   UserProfile({
     required this.fullName,
     this.profileImage,
-    this.pronouns,
+    this.phone,
     required this.username,
+    this.email,
     this.points,
   });
 
@@ -20,8 +22,8 @@ class UserProfile {
       fullName: json["fullName"],
       username: json["username"],
       profileImage: json["imageUrl"],
-      pronouns: json["pronouns"],
-      points: 0,
+      phone: json["phone"],
+      points: json["points"],
     );
   }
 
@@ -30,7 +32,8 @@ class UserProfile {
       fullName: user.displayName!,
       username: user.email!.split('@').first,
       profileImage: user.photoURL,
-      pronouns: null,
+      phone: user.phoneNumber,
+      email: user.email,
       points: 0,
     );
   }
@@ -39,9 +42,10 @@ class UserProfile {
     return {
       "username": username,
       "fullName": fullName,
-      "pronouns": pronouns,
+      "phone": phone,
       "imageUrl": profileImage,
       "points": points,
+      "email": email,
     };
   }
 }
