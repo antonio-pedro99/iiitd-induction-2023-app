@@ -1,23 +1,23 @@
 class Event {
-  final String name;
+  final String title;
   final String description;
-  final String image;
+  final String? image;
   final String date;
   final String time;
-  final String venue;
+  final String? venue;
 
   Event({
-    required this.name,
+    required this.title,
     required this.description,
-    required this.image,
+    this.image,
     required this.date,
     required this.time,
-    required this.venue,
+    this.venue,
   });
 
   factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
-      name: json['name'],
+      title: json['title'],
       description: json['description'],
       image: json['image'],
       date: json['date'],
@@ -30,7 +30,7 @@ class Event {
   static List<Event> items() {
     final List<Event> events = [
       Event(
-          name: "Candance",
+          title: "Candance",
           description:
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In bibendum vel lorem ut lobortis. Phasellus maximus felis ex, vel vehicula ante vulputate vel. Aenean faucibus tristique velit id luctus. Curabitur vitae consequat leo. Duis a sodales sapien, sit amet lobortis urna. Maecenas luctus lacus quis neque rutrum gravida. ",
           image: "",
@@ -38,7 +38,7 @@ class Event {
           time: "12:30 AM",
           venue: ""),
       Event(
-          name: "Odyssey",
+          title: "Odyssey",
           description:
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In bibendum vel lorem ut lobortis. Phasellus maximus felis ex, vel vehicula ante vulputate vel. Aenean faucibus tristique velit id luctus. Curabitur vitae consequat leo. Duis a sodales sapien, sit amet lobortis urna. Maecenas luctus lacus quis neque rutrum gravida. ",
           image: "",
@@ -46,7 +46,7 @@ class Event {
           time: "12:30 AM",
           venue: ""),
       Event(
-          name: "Essya",
+          title: "Essya",
           description:
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In bibendum vel lorem ut lobortis. Phasellus maximus felis ex, vel vehicula ante vulputate vel. Aenean faucibus tristique velit id luctus. Curabitur vitae consequat leo. Duis a sodales sapien, sit amet lobortis urna. Maecenas luctus lacus quis neque rutrum gravida. ",
           image: "",
@@ -54,7 +54,7 @@ class Event {
           time: "12:30 AM",
           venue: ""),
       Event(
-          name: "Something",
+          title: "Something",
           description:
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In bibendum vel lorem ut lobortis. Phasellus maximus felis ex, vel vehicula ante vulputate vel. Aenean faucibus tristique velit id luctus. Curabitur vitae consequat leo. Duis a sodales sapien, sit amet lobortis urna. Maecenas luctus lacus quis neque rutrum gravida. ",
           image: "",

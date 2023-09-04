@@ -12,6 +12,10 @@ extension System on BuildContext {
     );
   }
 
+  void openDrawer() {
+    Scaffold.of(this).openDrawer();
+  }
+
   void showAlertDialog(String message) {
     showDialog(
       context: this,
@@ -20,7 +24,7 @@ extension System on BuildContext {
         actions: [
           TextButton(
             onPressed: () => context.pop(),
-            child: Text('OK'),
+            child: const Text('OK'),
           ),
         ],
       ),

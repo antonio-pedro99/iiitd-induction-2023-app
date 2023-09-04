@@ -7,15 +7,30 @@ import 'package:btech_induction_2023/view/theme/colors.dart';
 import 'package:btech_induction_2023/view/widgets/menu_button.dart';
 import 'package:btech_induction_2023/view/widgets/texture_background.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class InductionAppMenu extends StatelessWidget {
+class InductionAppMenu extends StatefulWidget {
   const InductionAppMenu({super.key});
 
   @override
+  State<InductionAppMenu> createState() => _InductionAppMenuState();
+}
+
+class _InductionAppMenuState extends State<InductionAppMenu> {
+  void _launchClubLink(String url) async {
+    final encodedUrl = Uri.encodeFull(url);
+    if (await canLaunch(encodedUrl)) {
+      await launch(encodedUrl);
+    } else {
+      throw 'Could not launch $encodedUrl';
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Drawer(
       backgroundColor: InductionAppColor.yellow,
-      body: SafeArea(
+      child: SafeArea(
           child: Stack(
         children: [
           const TextureBackground(),
@@ -52,13 +67,15 @@ class InductionAppMenu extends StatelessWidget {
                 Align(
                     alignment: Alignment.centerLeft,
                     child: MenuButtonOption(
-                        onTap: () {},
-                        image: 'v_tour.png',
+                        onTap: () => _launchClubLink(
+                            "https://iiitd.ac.in/life/discipline-grievance/anti-sexual-harassment-committee"),
+                        image: 'icc.png',
                         margin: const EdgeInsets.only(right: 15))),
                 Align(
                     alignment: Alignment.centerRight,
                     child: MenuButtonOption(
-                      onTap: () {},
+                      onTap: () =>
+                          _launchClubLink("https://www.iiitd.ac.in/contact"),
                       image: 'contact.png',
                       margin: const EdgeInsets.only(right: 15),
                     )),
@@ -77,8 +94,15 @@ class InductionAppMenu extends StatelessWidget {
                                     const InductionAppHomePage()),
                                 child: const Text('Home'),
                               ),
+                               InkResponse(
+                                onTap: () =>
+                                    _launchClubLink("https://docs.google.com/spreadsheets/d/13v8l9BFTscdFjabei76bcm0W-54NaQDG6U9c-IhW2dc/edit?usp=sharing"),
+                                child: const Text('Groups'),
+                              ),
+                              
                               InkResponse(
-                                onTap: () {},
+                                onTap: () =>
+                                    _launchClubLink("https://www.iiitd.ac.in"),
                                 child: const Text('About Us'),
                               ),
                               InkResponse(
@@ -87,14 +111,16 @@ class InductionAppMenu extends StatelessWidget {
                                 child: const Text('Location'),
                               ),
                               InkResponse(
-                                onTap: () {},
+                                onTap: () => _launchClubLink(
+                                    "https://docs.google.com/spreadsheets/d/1w85BGovNseeoUiKojVfF8NYx4NBOw_5UfrIc6ALt4Yo/edit#gid=1213820881"),
                                 child: const Text('FAQs'),
-                              )
+                              ),
+                              // InkResponse(
+                              //   onTap: () => _launchClubLink(""),
+                              //   child: const Text('Team'),
+                              // )
                               // all the text here, note: you do not need the style.
                             ]))),
-                const SizedBox(
-                  height: 20,
-                ),
               ],
             ),
           )

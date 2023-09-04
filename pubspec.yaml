@@ -11,19 +11,41 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  url_launcher: ^6.1.12
 
   cupertino_icons: ^1.0.2
   image_picker: ^1.0.1
+  firebase_core: ^2.15.0
+  shared_preferences: ^2.2.0
+  flutter_local_notifications: ^15.1.0+1
+  cloud_firestore: ^4.8.4
+  firebase_auth: ^4.7.2
+  firebase_messaging: ^14.6.5
+  google_sign_in: ^6.1.4
+  provider: ^6.0.5
+  firebase_storage: ^11.2.5
+  flutter_dotenv: ^5.1.0
+  liquid_progress_indicator_v2: ^0.5.0
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "images/icon/icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  adaptive_icon_background: "#E44F44"
 
 flutter:
   uses-material-design: true
 
   assets:
     - images/
+    - images/clubs/
+    - .env

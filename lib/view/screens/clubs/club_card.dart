@@ -1,10 +1,20 @@
 import 'package:btech_induction_2023/data/club.dart';
 import 'package:btech_induction_2023/view/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ClubCard extends StatelessWidget {
   const ClubCard({super.key, required this.club});
   final Club club;
+
+  void _launchClubLink(String url) async {
+    final encodedUrl = Uri.encodeFull(url);
+    if (await canLaunch(encodedUrl)) {
+      await launch(encodedUrl);
+    } else {
+      throw 'Could not launch $encodedUrl';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +32,16 @@ class ClubCard extends StatelessWidget {
                   color: InductionAppColor.yellow,
                   height: 90,
                   width: 90,
-                  child: Image.asset(
-                    "images/iiitd.png",
-                    height: 80,
-                    width: 80,
+                  child: GestureDetector(
+                    onTap: () {
+                      _launchClubLink(club
+                          .siteLink); // Replace 'club.link' with the actual URL you want to open
+                    },
+                    child: Image.asset(
+                      "images/clubs/" + club.imagePath,
+                      height: 80,
+                      width: 80,
+                    ),
                   ),
                 ),
               ),

@@ -41,6 +41,9 @@ class InductionAppTheme {
       contentPadding: EdgeInsets.symmetric(horizontal: 25),
       visualDensity: VisualDensity.compact,
     ),
+    progressIndicatorTheme: const ProgressIndicatorThemeData(
+      color: Colors.white,
+    ),
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.symmetric(
         horizontal: 16,

@@ -25,4 +25,8 @@ extension Nav on BuildContext {
   void pop() {
     Navigator.of(this).pop();
   }
+
+  bool canPop() {
+    return Navigator.of(this).canPop();
+  }
 }

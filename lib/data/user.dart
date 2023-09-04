@@ -1,35 +1,46 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 class UserProfile {
-  final String username;
+  final String? rollNumber;
   final String fullName;
-  final String? pronouns;
   final String? profileImage;
+  final String? username;
+  final int? points;
 
   UserProfile({
     required this.fullName,
     this.profileImage,
-    this.pronouns,
-    required this.username,
-    required int points,
+    this.rollNumber,
+    this.username,
+    this.points,
   });
 
   factory UserProfile.fromJson(Map<String, dynamic> json) {
     return UserProfile(
       fullName: json["fullName"],
-      username: json["username"],
+      rollNumber: json["rollNumber"],
       profileImage: json["imageUrl"],
-      pronouns: json["pronouns"],
+      username: json["username"],
+      points: json["points"],
+    );
+  }
+
+  factory UserProfile.fromAuthUser(User user) {
+    return UserProfile(
+      fullName: user.displayName!,
+      profileImage: user.photoURL ?? "https://firebasestorage.googleapis.com/v0/b/alive-dsm.appspot.com/o/profile_pictures%2Fprofile.png?alt=media&token=3beca1bf-563f-4d7e-96b2-fcd45115fac1",
+      username: user.email!.split("@").first,
       points: 0,
     );
   }
 
-  get points => null;
-
   Map<String, dynamic> toMap() {
     return {
-      "username": username,
+      "rollNumber": rollNumber,
       "fullName": fullName,
-      "pronouns": pronouns,
       "imageUrl": profileImage,
+      "points": points,
+      "username": username,
     };
   }
 }
